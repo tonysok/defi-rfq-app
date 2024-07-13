@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import QRCode from 'react-qr-code'
 import './kyb.css'
@@ -13,6 +13,11 @@ const KybContainer = styled.div`
     max-width: 1200px;
     width: 350px;
     margin: 20px;
+`
+
+const Title = styled.h1`
+    font-size: 2rem;
+    color: #000000;
 `
 
 const Kyb = () => {
@@ -67,7 +72,7 @@ const Kyb = () => {
         .then((data) => {
           switch (data.status) {
             case 'success':
-              navigate('/quotes')
+              navigate('/dashboard')
               break
             case 'pending':
               break
@@ -82,6 +87,7 @@ const Kyb = () => {
 
   return (
     <KybContainer>
+      <Title>Step 2 - KYB</Title>
       <div id="qrcode">
         <QRCode
           size={100}
@@ -91,7 +97,7 @@ const Kyb = () => {
         />
       </div>
       <div className="instructions">
-        Please submit your KYB
+        Please submit your identity
       </div>
     </KybContainer>
   )

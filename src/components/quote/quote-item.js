@@ -1,23 +1,38 @@
 import React from "react";
 import "./quote-item.css";
+import styled from 'styled-components'
 
-const QuoteItem = ({ quote }) => {
-  const side = Side[quote.side];
-  return (
-    <div className="quote-item">
-      <p className="id">Id: {quote.id}</p>
-      <p className="size"> {quote.size}</p>
-      <p className="price"> {quote.price}</p>
-      <p className={`side ${side.toLowerCase()}`}> {Side[quote.side]}</p>
-      <p className="date">Expiry date: 2024-07-24</p>
-    </div>
-  );
-};
+const QuoteContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 1px 0;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
 
-const Side = {
-  0: "Buy",
-  1: "Sell",
-};
+    &:hover {
+        background-color: #e0e0e0;
+        transform: translateY(-2px);
+    }
+`;
 
-export default QuoteItem;
+const QuoteItem = styled.div`
+  flex: 1;
+  text-align: center;
+    pd
+`;
+
+const Quote = ({ asset, price, quantity, side }) => (
+  <QuoteContainer>
+    <QuoteItem>{asset}</QuoteItem>
+    <QuoteItem>{price}</QuoteItem>
+    <QuoteItem>{quantity}</QuoteItem>
+    <QuoteItem>{side}</QuoteItem>
+  </QuoteContainer>
+);
+
+export default Quote;
 

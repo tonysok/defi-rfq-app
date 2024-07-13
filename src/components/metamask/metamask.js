@@ -22,7 +22,7 @@ const Logo = styled.img`
 
 const Title = styled.h1`
     font-size: 2rem;
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
     color: #000000;
 `
 const Button = styled.button`
@@ -66,7 +66,7 @@ const MetaMaskLogin = () => {
         window.ethereum.removeListener('chainChanged', handleChainChanged)
       }
     }
-  }, [])
+  })
 
   const handleAccountsChanged = (accounts) => {
     if (accounts.length === 0) {
@@ -101,7 +101,7 @@ const MetaMaskLogin = () => {
 
   return (
     <MetamaskContainer>
-      <Title>Defi RFQ</Title>
+      <Title>Step 1 - Login</Title>
       {
         account ? (
           <div>
@@ -109,7 +109,7 @@ const MetaMaskLogin = () => {
           </div>
         ) : (
           <div>
-            <Logo src={metaMaskLogo} alt="MetaMask Logo"/>
+            <Logo src={ metaMaskLogo } alt="MetaMask Logo"/>
             <Button onClick={connectMetaMask}>Connect</Button>
             {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
           </div>
