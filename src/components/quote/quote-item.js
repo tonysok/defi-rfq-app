@@ -22,7 +22,6 @@ const QuoteContainer = styled.div`
 const QuoteItem = styled.div`
   flex: 1;
   text-align: center;
-    pd
 `;
 
 const Quote = ({ asset, price, quantity, side }) => (
