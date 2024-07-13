@@ -4,7 +4,7 @@ import QRCode from 'react-qr-code'
 
 const Kyb = () => {
   const navigate = useNavigate()
-  let [qrCodeValue, setQrCodeValue] = React.useState('')
+  let [qrCodeValue, setQrCodeValue] = React.useState('');
   const payload = {
     'chainID': '80002',
     'skipClaimRevocationCheck': false,
@@ -55,10 +55,10 @@ const Kyb = () => {
         .then(r => r.json())
         .then((data) => {
           if (data.status === 'success') {
-            navigate('/quotes')
+            navigate('/quotes');
           }
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     }, 1000)
   }
 
@@ -73,7 +73,7 @@ const Kyb = () => {
         />
       </div>
       <div className="instructions">
-        Please authenticate by scanning the QR code with your mobile device.
+        Please submit KYB.
       </div>
     </div>
   )
