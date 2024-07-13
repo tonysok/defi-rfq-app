@@ -1,0 +1,25 @@
+/* Basic CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* QR Code Styling */
+#qrcode {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 2px dashed #ccc;
+}
+
+#qrcode img {
+    margin: auto;
+}
+
+/* Instructions Styling */
+.instructions {
+    font-size: 16px;
+    margin-top: 20px;
+    color: #666;
+}
