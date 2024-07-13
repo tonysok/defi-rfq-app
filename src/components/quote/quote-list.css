@@ -1,5 +1,19 @@
+/* .quote-list { */
+/*     display: flex; */
+/*     flex-direction: column; */
+/*     gap: 20px; */
+/* } */
+
 .quote-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 5px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow-x: auto;
 }
+

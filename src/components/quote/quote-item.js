@@ -1,26 +1,23 @@
-import React from 'react';
-import './quote-item.css';
+import React from "react";
+import "./quote-item.css";
 
 const QuoteItem = ({ quote }) => {
+  const side = Side[quote.side];
   return (
-    <div className="quote-list">
-      <div className="quote-item">
-        <h2>ETH</h2>
-        <p className="amount">Amount: 2100</p>
-        <p className="date">Expiry date: 2024-07-24</p>
-      </div>
-      <div className="quote-item">
-        <h2>ETH</h2>
-        <p className="amount">Amount: 399</p>
-        <p className="date">Date: 2024-07-24</p>
-      </div>
-      <div className="quote-item">
-        <h2>WBTC</h2>
-        <p className="amount">Amount: 69</p>
-        <p className="date">Date: 2024-07-24</p>
-      </div>
+    <div className="quote-item">
+      <p className="id">Id: {quote.id}</p>
+      <p className="size"> {quote.size}</p>
+      <p className="price"> {quote.price}</p>
+      <p className={`side ${side.toLowerCase()}`}> {Side[quote.side]}</p>
+      <p className="date">Expiry date: 2024-07-24</p>
     </div>
   );
 };
 
+const Side = {
+  0: "Buy",
+  1: "Sell",
+};
+
 export default QuoteItem;
+

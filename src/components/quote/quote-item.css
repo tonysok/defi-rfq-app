@@ -1,18 +1,106 @@
+/* .quote-item { */
+/*   background-color: #2e2e2e; */
+/*   padding: 20px; */
+/*   border-radius: 8px; */
+/*   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); */
+/*   text-align: left; */
+/*   color: #e0e0e0; */
+/* } */
+/**/
+/* .quote-item h2 { */
+/*   margin-bottom: 10px; */
+/*   color: #76ff03; */
+/* } */
+/**/
+/* .amount, */
+/* .date { */
+/*   margin-bottom: 5px; */
+/*   color: #b0b0b0; */
+/* } */
+/**/
+
+/* Individual quote item styling */
 .quote-item {
-    background-color: #2e2e2e;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    text-align: left;
-    color: #e0e0e0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  background-color: #020304; /* Updated background color */
+  transition: box-shadow 0.3s ease;
+  gap: 10px;
 }
 
+/* Hover effect for individual quote items */
+.quote-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the quote header (e.g., ETH) */
 .quote-item h2 {
-    margin-bottom: 10px;
-    color: #76ff03;
+  margin: 0;
+  font-size: 1.2em;
+  color: #7c4df6; /* Accent color */
+  flex: 1;
 }
 
-.amount, .date {
+/* Styling for the paragraph elements */
+.quote-item p {
+  margin: 0;
+  font-size: 1em;
+  color: #79e4b7; /* Default color for text */
+  flex: 1;
+  min-width: 100px; /* Ensures each piece of info has a minimum width */
+}
+
+/* Styling for the different data types within a quote item */
+.quote-item .id {
+  color: #7c4df6; /* Accent color */
+}
+
+.quote-item .size {
+  color: #7c4df6; /* Accent color */
+}
+
+.quote-item .price {
+  color: #7c4df6; /* Accent color */
+}
+
+/* Buy and sell side colors */
+.quote-item .side.buy {
+  color: #79e4b7; /* Buy side color */
+}
+
+.quote-item .side.sell {
+  color: #f5576a; /* Sell side color */
+}
+
+.quote-item .date {
+  color: #7c4df6; /* Accent color */
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 600px) {
+  .quote-list {
+    padding: 10px;
+  }
+
+  .quote-item {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .quote-item h2 {
+    font-size: 1.2em;
     margin-bottom: 5px;
-    color: #b0b0b0;
+  }
+
+  .quote-item p {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    min-width: unset; /* Removes minimum width on mobile */
+  }
 }
