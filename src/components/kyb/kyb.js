@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import QRCode from 'react-qr-code'
 import './kyb.css'
@@ -46,25 +46,27 @@ const Kyb = () => {
       }
     ]
   }
-  fetch('https://verifier-backend.polygonid.me/sign-in', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  })
-    .then(r => r.json())
-    .then((data) => {
-      const request_uri = data['qrCode'].split('iden3comm://?request_uri=')[1]
-      fetch(request_uri)
-        .then(r => r.json())
-        .then((response) => {
-          setQrCodeValue(JSON.stringify(response))
-          checkAuthenticationPeriodically(data['sessionID'])
-        })
-        .catch(err => console.log(err))
+  useEffect(() => {
+    fetch('https://verifier-backend.polygonid.me/sign-in', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
     })
-    .catch(err => console.log(err))
+      .then(r => r.json())
+      .then((data) => {
+        const request_uri = data['qrCode'].split('iden3comm://?request_uri=')[1]
+        fetch(request_uri)
+          .then(r => r.json())
+          .then((response) => {
+            setQrCodeValue(JSON.stringify(response))
+            checkAuthenticationPeriodically(data['sessionID'])
+          })
+          .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
+  });
 
   function checkAuthenticationPeriodically (sessionId) {
     setInterval(() => {
