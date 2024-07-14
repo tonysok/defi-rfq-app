@@ -6,7 +6,7 @@ import AcceptQuoteForm from "./accept-quote";
 import Modal from "./quote-modal";
 import abi from "./abi.json";
 import * as ethers from "ethers";
-import Logo from '../logo'
+import Logo from "../logo";
 
 const DashboardContainer = styled.div`
   padding: 20px;
@@ -65,26 +65,33 @@ const QuotesDashboard = () => {
     }
   }, []);
 
+  const getContract = async () => {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+
+    const contractAddress = "0x439f4E462FcE6DC69DBc3752ff6601d00dCf4240";
+    return new ethers.Contract(contractAddress, abi, signer);
+  };
   const fetchQuotes = async () => {
     try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-
-      const contractAddress = "0x439f4E462FcE6DC69DBc3752ff6601d00dCf4240";
-      const contract = new ethers.Contract(contractAddress, abi, signer);
+      const contract = await getContract();
       const q = await contract.listQuotes();
       const quotesFormatted = q.map((q, i) => {
-
-        return ({
+        return {
           id: i,
           quantity: q.size.toString(),
-          price: q.token === "0x57214Ae2AE7DEE6067cb65e8aBD2Fe6D2499A2B6" ? (Number(q.price.toString()) / 1e18).toFixed(2) : (Number(q.price.toString()) / 1e6).toFixed(2),
-          asset: q.token === "0x57214Ae2AE7DEE6067cb65e8aBD2Fe6D2499A2B6" ? "DAI" : "USDC",
+          price:
+            q.token === "0x57214Ae2AE7DEE6067cb65e8aBD2Fe6D2499A2B6"
+              ? (Number(q.price.toString()) / 1e18).toFixed(2)
+              : (Number(q.price.toString()) / 1e6).toFixed(2),
+          asset:
+            q.token === "0x57214Ae2AE7DEE6067cb65e8aBD2Fe6D2499A2B6"
+              ? "DAI"
+              : "USDC",
           side: Side[q.side],
-        });
+        };
       });
 
-      console.log(quotesFormatted);
       setQuotes(quotesFormatted);
     } catch (err) {
       setError(err.message);
@@ -96,9 +103,15 @@ const QuotesDashboard = () => {
   };
 
   const handleSubmit = (formValues) => {
-    console.log("Form submitted with values:", formValues);
-    // Handle form submission logic here
-    setIsModalOpen(false); // Close modal after submission
+    getContract()
+      .then((contract) => {
+        contract.acceptQuote(formValues.id).then(() => setIsModalOpen(false));
+      })
+      .catch((err) => {
+        setError(err);
+
+        setIsModalOpen(false); // Close modal after submission
+      });
   };
 
   const handleCloseModal = () => {
