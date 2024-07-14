@@ -43,13 +43,6 @@ const TableHeaderItem = styled.div`
   text-align: center;
 `;
 
-// const quotes = [
-//   { id: "1", asset: "BTC", price: "50000", quantity: "0.1", side: "buy" },
-//   { id: "2", asset: "ETH", price: "4000", quantity: "1", side: "sell" },
-//   { id: "3", asset: "LTC", price: "200", quantity: "10", side: "buy" },
-//   // Add more quotes as needed
-// ];
-
 const QuotesDashboard = () => {
   const [selectedQuote, setSelectedQuote] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,7 +52,6 @@ const QuotesDashboard = () => {
   useEffect(() => {
     if (window.ethereum) {
       // Request account access if needed
-      console.log("here");
       window.ethereum
         .request({ method: "eth_requestAccounts" })
         .then((accounts) => {
@@ -82,8 +74,8 @@ const QuotesDashboard = () => {
       const q = await contract.listQuotes();
       const quotesFormatted = q.map((q, i) => ({
         id: i,
-        size: q.size,
-        price: q.price,
+        size: q.size.toString(),
+        price: q.price.toString(),
         token: q.token,
         side: q.side,
       }));
@@ -126,10 +118,10 @@ const QuotesDashboard = () => {
           {quotes.map((quote, index) => (
             <div key={index} onClick={() => handleQuoteClick(quote)}>
               <Quote
-                asset={quote.asset}
+                asset={quote.token}
                 price={quote.price}
-                quantity={quote.quantity}
-                side={quote.side}
+                quantity={quote.size}
+                side={Side[quote.side]}
               />
             </div>
           ))}
@@ -146,6 +138,11 @@ const QuotesDashboard = () => {
       )}
     </DashboardContainer>
   );
+};
+
+const Side = {
+  0: "Buy",
+  1: "Sell",
 };
 
 export default QuotesDashboard;
