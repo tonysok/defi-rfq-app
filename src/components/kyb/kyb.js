@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import QRCode from 'react-qr-code'
 import './kyb.css'
 import styled from 'styled-components'
+import Logo from '../logo'
 
 const KybContainer = styled.div`
     background-color: #fff;
@@ -87,6 +88,7 @@ const Kyb = () => {
 
   return (
     <KybContainer>
+      <Logo />
       <Title>Step 2 - KYB</Title>
       <div id="qrcode">
         <QRCode

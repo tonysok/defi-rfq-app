@@ -6,6 +6,7 @@ import AcceptQuoteForm from "./accept-quote";
 import Modal from "./quote-modal";
 import abi from "./abi.json";
 import * as ethers from "ethers";
+import Logo from '../logo'
 
 const DashboardContainer = styled.div`
   padding: 20px;
@@ -46,7 +47,7 @@ const TableHeaderItem = styled.div`
 const QuotesDashboard = () => {
   const [selectedQuote, setSelectedQuote] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [_account, setAccount] = useState(null);
+  const [_, setAccount] = useState(null);
   const [quotes, setQuotes] = useState([]);
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -72,13 +73,16 @@ const QuotesDashboard = () => {
       const contractAddress = "0x439f4E462FcE6DC69DBc3752ff6601d00dCf4240";
       const contract = new ethers.Contract(contractAddress, abi, signer);
       const q = await contract.listQuotes();
-      const quotesFormatted = q.map((q, i) => ({
-        id: i,
-        size: q.size.toString(),
-        price: q.price.toString(),
-        token: q.token,
-        side: q.side,
-      }));
+      const quotesFormatted = q.map((q, i) => {
+
+        return ({
+          id: i,
+          quantity: q.size.toString(),
+          price: q.token === "0x57214Ae2AE7DEE6067cb65e8aBD2Fe6D2499A2B6" ? (Number(q.price.toString()) / 1e18).toFixed(2) : (Number(q.price.toString()) / 1e6).toFixed(2),
+          asset: q.token === "0x57214Ae2AE7DEE6067cb65e8aBD2Fe6D2499A2B6" ? "DAI" : "USDC",
+          side: Side[q.side],
+        });
+      });
 
       console.log(quotesFormatted);
       setQuotes(quotesFormatted);
@@ -104,6 +108,7 @@ const QuotesDashboard = () => {
 
   return (
     <DashboardContainer>
+      <Logo />
       <Title>Quotes Dashboard</Title>
       {error ? (
         error.toString()
@@ -118,10 +123,10 @@ const QuotesDashboard = () => {
           {quotes.map((quote, index) => (
             <div key={index} onClick={() => handleQuoteClick(quote)}>
               <Quote
-                asset={quote.token}
+                asset={quote.asset}
                 price={quote.price}
-                quantity={quote.size}
-                side={Side[quote.side]}
+                quantity={quote.quantity}
+                side={quote.side}
               />
             </div>
           ))}
@@ -141,8 +146,8 @@ const QuotesDashboard = () => {
 };
 
 const Side = {
-  0: "Buy",
-  1: "Sell",
+  0: "buy",
+  1: "sell",
 };
 
 export default QuotesDashboard;

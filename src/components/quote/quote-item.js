@@ -1,5 +1,5 @@
-import React from "react";
-import "./quote-item.css";
+import React from 'react'
+import './quote-item.css'
 import styled from 'styled-components'
 
 const QuoteContainer = styled.div`
@@ -17,21 +17,31 @@ const QuoteContainer = styled.div`
         background-color: #e0e0e0;
         transform: translateY(-2px);
     }
-`;
-
+`
 const QuoteItem = styled.div`
-  flex: 1;
-  text-align: center;
-`;
+    flex: 1;
+    text-align: center;
+`
+const AssetQuoteItem = styled.div`
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+`
+
+const SideQuoteItem = styled.div`
+    flex: 1;
+    text-align: center;
+    color: ${({ side }) => (side === 'buy' ? 'green' : 'red')};
+`
 
 const Quote = ({ asset, price, quantity, side }) => (
   <QuoteContainer>
-    <QuoteItem>{asset}</QuoteItem>
+    <AssetQuoteItem>{asset}</AssetQuoteItem>
     <QuoteItem>{price}</QuoteItem>
     <QuoteItem>{quantity}</QuoteItem>
-    <QuoteItem>{side}</QuoteItem>
+    <SideQuoteItem side={side}>{side}</SideQuoteItem>
   </QuoteContainer>
-);
+)
 
-export default Quote;
+export default Quote
 

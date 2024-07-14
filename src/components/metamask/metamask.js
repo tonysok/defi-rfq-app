@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import metaMaskLogo from './metamask-logo.png'
+import Logo from '../logo'
 
 const MetamaskContainer = styled.div`
     background-color: #fff;
@@ -14,7 +15,7 @@ const MetamaskContainer = styled.div`
     margin: 20px;
 `
 
-const Logo = styled.img`
+const MetamaskLogo = styled.img`
     width: 100px;
     display: block;
     margin: auto auto 2rem;
@@ -101,6 +102,7 @@ const MetaMaskLogin = () => {
 
   return (
     <MetamaskContainer>
+      <Logo />
       <Title>Step 1 - Login</Title>
       {
         account ? (
@@ -109,7 +111,7 @@ const MetaMaskLogin = () => {
           </div>
         ) : (
           <div>
-            <Logo src={ metaMaskLogo } alt="MetaMask Logo"/>
+            <MetamaskLogo src={ metaMaskLogo } alt="MetaMask Logo"/>
             <Button onClick={connectMetaMask}>Connect</Button>
             {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
           </div>
